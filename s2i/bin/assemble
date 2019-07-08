@@ -1,0 +1,38 @@
+#!/bin/bash -e
+#
+# (C) Copyright IBM Corporation 2016.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# S2I assemble script for the 'liberty-javaee7' image.
+
+# If a pom.xml is present, this is a normal build scenario
+# so run maven.
+
+if [ -f $S2I_DESTINATION/src/wlp/config/server.xml ]; then
+  cp $S2I_DESTINATION/src/wlp/config/server.xml /config
+else
+  echo "Aborting due to missing server.xml file"
+  exit 1
+fi
+
+find $S2I_DESTINATION/src/target -type f  -name \*.war -exec cp {}  /opt/ibm/wlp/usr/servers/defaultServer/apps \;
+find $S2I_DESTINATION/src/target -type f  -name \*.ear -exec cp {}  /opt/ibm/wlp/usr/servers/defaultServer/apps \;
+
+# Copy JDBC drivers and other supporting files
+if [ -d $S2I_DESTINATION/src/wlp/usr ]; then
+   cp -R $S2I_DESTINATION/src/wlp/usr /opt/ibm/wlp
+fi
+
+echo "Application deployment finished! Please start up the WebSphere Liberty container using the following command: docker run -P <name of image>"
+exit 0
