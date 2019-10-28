@@ -1,6 +1,6 @@
 # This image provides a base for building and running WebSphere Liberty applications.
-# It builds using maven and runs the resulting artifacts on WildFly 10.1.0 Final
-FROM websphere-liberty:javaee7
+# It does a binary build 
+FROM clouddragons/websphere-liberty-centos:19.0.0.9-javaee7
 
 MAINTAINER David Carew <carew@us.ibm.com>
 
