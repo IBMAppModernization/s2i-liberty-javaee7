@@ -1,6 +1,6 @@
 # This image provides a base for building and running WebSphere Liberty applications.
-# It does a binary build 
-FROM clouddragons/websphere-liberty-centos:19.0.0.9-javaee7
+# It does a binary build
+FROM clouddragons/websphere-liberty-centos:19.0.0.9-kernel
 
 MAINTAINER David Carew <carew@us.ibm.com>
 

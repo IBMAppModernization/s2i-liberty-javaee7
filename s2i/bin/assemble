@@ -26,6 +26,8 @@ else
   exit 1
 fi
 
+configure.sh
+
 find $S2I_DESTINATION/src/target -type f  -name \*.war -exec cp {}  /opt/ibm/wlp/usr/servers/defaultServer/apps \;
 find $S2I_DESTINATION/src/target -type f  -name \*.ear -exec cp {}  /opt/ibm/wlp/usr/servers/defaultServer/apps \;
 
